@@ -39,6 +39,7 @@ const Counter = ({componentKey,details}) => {
 
   useEffect(()=>{
     handleBlurInput()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   useEffect(()=>{
@@ -68,6 +69,18 @@ const Counter = ({componentKey,details}) => {
           onChange={handleChange}
           onBlur={handleBlurInput}
             onClick={() => setIsDraggingDisabled(true)}
+            onTouchStart={(e) => {
+              e.preventDefault()
+              setIsDraggingDisabled(true)
+              curInput?.current.querySelector('input').focus()
+            }}
+
+            onTouchEnd={(e) => {
+              e.preventDefault()
+              setIsDraggingDisabled(false) 
+            }}
+            // onTouchCancel={() =>handleBlurInput()}
+            
               onMouseLeave={() => setIsDraggingDisabled(false)}
           variant="standard" 
           onKeyDown={(e)=>{
@@ -77,7 +90,7 @@ const Counter = ({componentKey,details}) => {
           }}
 
       />:
-      <h2 className='font-semibold text-center text-[25px]' onClick={handleInputVisible}>{counterContent}</h2>
+      <h2 className='font-semibold text-center text-[25px]' onTouchStart={handleInputVisible} onClick={handleInputVisible}>{counterContent}</h2>
 
       }
         {/* create arrow to increament and decreament counter  */}
@@ -85,10 +98,10 @@ const Counter = ({componentKey,details}) => {
           <p className='font-semibold text-[35px]'>{counterValue}</p>
 
           <div className='flex flex-col absolute right-[11px] '>
-            <IconButton className='!text-[20px] !text-white' onClick={() => setCounterValue(counterValue + 1)}>
+            <IconButton className='!text-[20px] !text-white' onTouchStart={() => setCounterValue(counterValue + 1)} onClick={() => setCounterValue(counterValue + 1)}>
               <ArrowCircleUpIcon />
             </IconButton>
-            <IconButton className='!text-[20px] !text-white' onClick={() => setCounterValue(counterValue - 1)}>
+            <IconButton className='!text-[20px] !text-white' onTouchStart={() => setCounterValue(counterValue - 1)} onClick={() => setCounterValue(counterValue - 1)}>
               <ArrowCircleDownIcon />
             </IconButton>
           </div>

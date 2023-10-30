@@ -81,7 +81,7 @@ const TodoItem = ({todo,onRemove,onUpdate,index}) => {
         {(provided,snapshot)=>(
           <div onMouseEnter={handleMouseEnter} style={{...provided.draggableProps.style}} onMouseLeave={handleMouseLeave} className={`select-none todo-item ${snapshot.isDragging ? 'dragging opacity-80' : ''} no-move flex items-center gap-2 mb-2 ${color} rounded`}    {...provided.draggableProps} ref={provided.innerRef}>
           <Checkbox onChange={handleCheckInput} checked={checked} color='default' sx={{color:'white'}}/>
-          {showInput? <TextField className='!text-white' ref={curInput} value={todoValue} variant='standard' onKeyDown={(e)=>{e.key === 'Enter' && handleBlurInput()}} onChange={handleInputChange} onBlur={handleBlurInput}/> : <p className={`select-none w-full cursor-pointer text-white ${todo.checked && 'line-through !text-[#9b9999]'}`} onDoubleClick={handleInputVisible}>{todoValue}</p>}
+          {showInput? <TextField className='!text-white' ref={curInput} value={todoValue} variant='standard' onKeyDown={(e)=>{e.key === 'Enter' && handleBlurInput()}} onChange={handleInputChange} onBlur={handleBlurInput}/> : <p className={`select-none w-full cursor-pointer text-white ${todo.checked && 'line-through !text-[#9b9999]'}`} onTouchEnd={handleBlurInput}  onTouchStart={handleInputVisible} onDoubleClick={handleInputVisible}>{todoValue}</p>}
         
           <div onClick={handleClick}  {...provided.dragHandleProps} className={`transition-opacity ${showDragIcon?'!opacity-full !visible':'!opacity-0 !invisible'}`}>
             <IconButton>

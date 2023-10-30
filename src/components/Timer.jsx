@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef,useState } from 'react';
 import { TextField } from '@mui/material';
 const Timer = ({componentKey,details}) => {
   const nodeRef = useRef(null)
+  const inputRef = useRef(null)
   const [isDraggingDisabled, setIsDraggingDisabled] = useState(false);
   const [position,setPosition] = useState({x:details? details?.positionX : 0,y:details? details.positionY:0})
   const [isRunning,setIsRunning] = useState(false)
@@ -123,30 +124,30 @@ const Timer = ({componentKey,details}) => {
 
         <div className='w-[190px] p-6 absolute bg-lime-900 rounded-3xl h-fit text-white' ref={nodeRef}>
               {showTimerInput && (
-                <TextField InputLabelProps={{ shrink: true ,pattern: '[0-9]*'}} type='number' className='!text-white !mt-4'  onChange={handleTimerInputChange} value={timerInputVal} variant='standard'/>
+                <TextField ref={inputRef} onTouchStart={()=>inputRef?.current.querySelector('input').focus()} InputLabelProps={{ shrink: true ,pattern: '[0-9]*'}} type='number' className='!text-white !mt-4'  onChange={handleTimerInputChange} value={timerInputVal} variant='standard'/>
               )}
               {showTimer&&<h2 className='text-white text-center text-[38px] font-semibold'>{fullTime}</h2>  }
               { !showTimer &&!showTimerInput&& <div className='flex gap-4 flex-wrap items-center mt-5 text-[20px]'>
-              <p onClick={()=>handleTimerClick(5)} className='cursor-pointer'>5</p>
-              <p onClick={()=>handleTimerClick(10)} className='cursor-pointer'>10</p>
-              <p onClick={()=>handleTimerClick(20)} className='cursor-pointer'>20</p>
-              <p onClick={()=>handleTimerClick(30)} className='cursor-pointer'>30</p>
-              <p onClick={()=>handleTimerClick(45)} className='cursor-pointer'>45</p>
-              <p onClick={()=>handleTimerClick(60)} className='cursor-pointer'>60</p>
-              <p className='text-[18px] cursor-pointer' onClick={handleShowInput}>Custom</p>
+              <p onClick={()=>handleTimerClick(5)} onTouchStart={()=>handleTimerClick(5)} className='cursor-pointer'>5</p>
+              <p onClick={()=>handleTimerClick(10)} onTouchStart={()=>handleTimerClick(10)} className='cursor-pointer'>10</p>
+              <p onClick={()=>handleTimerClick(20)}onTouchStart={()=>handleTimerClick(20)} className='cursor-pointer'>20</p>
+              <p onClick={()=>handleTimerClick(30)}onTouchStart={()=>handleTimerClick(30)} className='cursor-pointer'>30</p>
+              <p onClick={()=>handleTimerClick(45)}onTouchStart={()=>handleTimerClick(45)} className='cursor-pointer'>45</p>
+              <p onClick={()=>handleTimerClick(60)}onTouchStart={()=>handleTimerClick(60)} className='cursor-pointer'>60</p>
+              <p className='text-[18px] cursor-pointer' onTouchStart={handleShowInput} onClick={handleShowInput}>Custom</p>
 
             </div>}
             
             <div className='flex justify-between items-center mt-3'>
               {isRunning?
-              <IconButton className='!text-white !text-[17px]' onClick={handleTimerPause}>
+              <IconButton className='!text-white !text-[17px]' onClick={handleTimerPause} onTouchStart={handleTimerPause}>
               Pause
               </IconButton>
-              : <IconButton className='!text-white !text-[17px]' onClick={handleTimerStart}>
+              : <IconButton className='!text-white !text-[17px]' onClick={handleTimerStart}  onTouchStart={handleTimerStart}>
                 Start
               </IconButton>}
               
-              <IconButton className='!text-white !text-[17px]' onClick={handleTimerReset}>
+              <IconButton className='!text-white !text-[17px]' onClick={handleTimerReset}  onTouchStart={handleTimerReset}>
                 Reset
               </IconButton>
               

@@ -1,4 +1,4 @@
-import {  Fragment, useCallback, useEffect, useMemo, useRef,useState } from 'react';
+import {   useCallback, useEffect, useMemo, useRef,useState } from 'react';
 import OptionsCmponent from './OptionsCmponent';
 
 import { Droppable ,DragDropContext} from 'react-beautiful-dnd'
@@ -10,6 +10,7 @@ import Confetti from 'react-confetti'
 
 const Todo = ({componentKey,details}) => {
   const nodeRef = useRef(null)
+  const inputRef = useRef(null)
   const [isDraggingDisabled, setIsDraggingDisabled] = useState(false);
   const [position,setPosition] = useState({x:details? details?.positionX : 0,y:details? details.positionY:0})
   const [todoContent,setTodoContent] = useState('')
@@ -126,7 +127,16 @@ const Todo = ({componentKey,details}) => {
           >
           <div style={customStyle} className={`w-[360px] p-8 !transform-none absolute min-h-[400px] bg-white rounded-xl`} ref={nodeRef}>
             <TextField fullWidth 
+              ref={inputRef}
+              
               onChange={handleChange} onClick={() => setIsDraggingDisabled(true)}
+              onTouchStart={(e) => {
+                setIsDraggingDisabled(true)
+                inputRef?.current.querySelector('input').focus()
+              }}
+              onTouchEnd={(e) => {
+                setIsDraggingDisabled(false)
+              }}
               onMouseLeave={() => setIsDraggingDisabled(false)}
               className='!absolute bottom-0 left-0'
               onKeyDown={handleInputSubmit}
@@ -149,7 +159,7 @@ const Todo = ({componentKey,details}) => {
           <OptionsCmponent componentKey={componentKey}  todoOption={{deleteComplete:handleDeleteCompleteTask,deleteAll:handleDeleteAllTask}} />
           {celebrate&&
             <Confetti
-              height={600}
+              height={300}
               className='w-full'
               recycle={false}
               numberOfPieces={700}

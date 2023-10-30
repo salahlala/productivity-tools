@@ -17,7 +17,7 @@ const Notes = ({componentKey,details}) => {
   const [color,setColor] = useState(details?.color ||'bg-[#faebd7]')
   const [isDraggingDisabled, setIsDraggingDisabled] = useState(false);
   const nodeRef = useRef(null)
-  
+  const inputRef = useRef(null)
   const handleDragStop = useCallback((e,data)=>{
     if (position.x !== data.x || position.y !== data.y){
       setPosition({x:data.x,y:data.y})
@@ -55,9 +55,21 @@ const Notes = ({componentKey,details}) => {
         fullWidth
             multiline
             value={noteContent}
+            ref={inputRef}
           // className="w-full !border-0 !outline-0 focus:outline-0"
           onChange={handleChange}
             onClick={() => setIsDraggingDisabled(true)}
+            onTouchStart={(e) => {
+              // e.stopPropagation()
+              setIsDraggingDisabled(true)
+              inputRef?.current.querySelector('textarea').focus()
+            }}
+            onTouchMove={(e)=>{
+              setIsDraggingDisabled(true)
+            }}
+            onTouchEnd={(e) => {
+              setIsDraggingDisabled(false)
+            }}
               onMouseLeave={() => setIsDraggingDisabled(false)}
           variant="standard" 
           InputProps={{

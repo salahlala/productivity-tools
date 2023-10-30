@@ -35,6 +35,7 @@ const OptionsCmponent = ({options,componentKey,onClickFunction,todoOption}) => {
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         onClick={handleClick}
+        onTouchStart={handleClick}
       >
 
         <MoreVertIcon />
@@ -53,6 +54,9 @@ const OptionsCmponent = ({options,componentKey,onClickFunction,todoOption}) => {
           <MenuItem key={option}  onClick={()=>{
             onClickFunction(Object.values(options)[index])
             handleClose()
+          }} onTouchStart={()=>{
+            onClickFunction(Object.values(options)[index])
+            handleClose()
           }}>
             <p className={`${Object.values(options)[index]} text-white px-2 py-[2px] rounded mr-2`}>A</p>{option}
           </MenuItem>
@@ -60,15 +64,15 @@ const OptionsCmponent = ({options,componentKey,onClickFunction,todoOption}) => {
 
             {todoOption&&
               <div>
-                <MenuItem onClick={deleteCompleteTasks}>
+                <MenuItem onClick={deleteCompleteTasks} onTouchStart={deleteCompleteTasks}>
                   Delete  Completed Tasks
                 </MenuItem>
-                <MenuItem onClick={deleteAllTasks}>
+                <MenuItem onClick={deleteAllTasks} onTouchStart={deleteAllTasks}>
                   Delete  All Tasks
                 </MenuItem>
             </div>
           }
-          <MenuItem onClick={()=>handleRemoveTool(componentKey)}>
+          <MenuItem onClick={()=>handleRemoveTool(componentKey)} onTouchStart={()=>handleRemoveTool(componentKey)}>
             
             Remove <DeleteForeverIcon className="text-red-500"/>
           </MenuItem>
