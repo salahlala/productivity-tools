@@ -53,25 +53,29 @@ const Notes = ({componentKey,details}) => {
     <div className={`w-[320px] lg:w-[360px] p-6 absolute ${color} rounded-3xl h-fit min-h-[300px] lg:min-h-[400px]`} ref={nodeRef}>
       <TextField
         fullWidth
-            multiline
+            multiline={true}
             value={noteContent}
-            ref={inputRef}
+            inputRef={inputRef}
           // className="w-full !border-0 !outline-0 focus:outline-0"
           onChange={handleChange}
             onClick={() => setIsDraggingDisabled(true)}
             onTouchStart={(e) => {
-              // e.stopPropagation()
+              // e.preventDefault()
               setIsDraggingDisabled(true)
-              inputRef?.current.querySelector('textarea').focus()
-            }}
-            onTouchMove={(e)=>{
-              setIsDraggingDisabled(true)
-            }}
-            onTouchEnd={(e) => {
-              setIsDraggingDisabled(false)
-              inputRef?.current.querySelector('textarea').blur()
+              setTimeout(()=>{
 
+                inputRef?.current.focus()
+              },15)
             }}
+         
+           
+            onTouchEnd={(e) => {
+              setTimeout(()=>{
+                
+                setIsDraggingDisabled(false)
+              },100)
+            }}
+          
               onMouseLeave={() => setIsDraggingDisabled(false)}
           variant="standard" 
           InputProps={{
