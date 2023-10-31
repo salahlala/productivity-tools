@@ -50,7 +50,7 @@ const Notes = ({componentKey,details}) => {
       // onDrag={handleDrag}
       >
       
-    <div className={`w-[360px] p-6 absolute ${color} rounded-3xl h-fit min-h-[400px]`} ref={nodeRef}>
+    <div className={`w-[320px] lg:w-[360px] p-6 absolute ${color} rounded-3xl h-fit min-h-[300px] lg:min-h-[400px]`} ref={nodeRef}>
       <TextField
         fullWidth
             multiline

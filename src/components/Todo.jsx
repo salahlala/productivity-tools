@@ -125,7 +125,7 @@ const Todo = ({componentKey,details}) => {
           cancel='.no-move'
           // {...provided.dragHandleProps}
           >
-          <div style={customStyle} className={`w-[360px] p-8 !transform-none absolute min-h-[400px] bg-white rounded-xl`} ref={nodeRef}>
+          <div style={customStyle} className={`w-[340px] lg:w-[360px] p-8 !transform-none absolute min-h-[300px] lg:min-h-[400px] bg-white rounded-xl`} ref={nodeRef}>
             <TextField fullWidth 
               ref={inputRef}
               
