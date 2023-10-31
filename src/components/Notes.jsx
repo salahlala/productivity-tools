@@ -69,6 +69,8 @@ const Notes = ({componentKey,details}) => {
             }}
             onTouchEnd={(e) => {
               setIsDraggingDisabled(false)
+              inputRef?.current.querySelector('textarea').blur()
+
             }}
               onMouseLeave={() => setIsDraggingDisabled(false)}
           variant="standard" 
