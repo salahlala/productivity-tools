@@ -89,6 +89,7 @@ const Timer = ({componentKey,details}) => {
           setIsRunning(false)
           setIsPaused(false)
           setShowTimer(false)
+          alert('Time is up')
           setTimeout(() => {
             
             alarmAudio.pause()
