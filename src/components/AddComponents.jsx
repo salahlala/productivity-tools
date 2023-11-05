@@ -25,7 +25,7 @@ const colors = ['!bg-blue-950','!bg-[#FF9800]','!bg-emerald-900','!bg-lime-900',
 export default  memo(function AddComponents() {
   const {handleAddTools} = useContext(MainContext);
 
-  const handleAddComponent = useCallback((type) =>{
+  const handleAddComponent = useCallback((type,index) =>{
     const key = uuidv4();
     const oldData= JSON.parse(localStorage.getItem('storedComponents'))||[]
 
@@ -33,11 +33,11 @@ export default  memo(function AddComponents() {
       handleAddTools(<Todo key={key} componentKey={key} />)
       
     }else if (type ==='notes') {
-      handleAddTools(<Notes key={key} componentKey={key} />)
+      handleAddTools(<Notes key={key} componentKey={key}/>)
     }else if (type ==='counter') {
-      handleAddTools(<Counter key={key} componentKey={key} />)
+      handleAddTools(<Counter key={key} componentKey={key}/>)
     }else if (type ==='timer') {
-      handleAddTools(<Timer key={key} componentKey={key} />)
+      handleAddTools(<Timer key={key} componentKey={key}/>)
     }
     localStorage.setItem('storedComponents',JSON.stringify([
       ...oldData,
@@ -54,7 +54,7 @@ export default  memo(function AddComponents() {
         // className='!bg-white'
       >
           {actions.map((action,index) => (
-            <SpeedDialAction onClick={()=>handleAddComponent(action.name.toLowerCase())} key={action.name} icon={action.icon} tooltipTitle={action.name} className={`${colors[index]} !text-white`}/>
+            <SpeedDialAction onClick={()=>handleAddComponent(action.name.toLowerCase(),index)} key={action.name} icon={action.icon} tooltipTitle={action.name} className={`${colors[index]} !text-white`}/>
           ))}
           
       </SpeedDial>

@@ -58,7 +58,10 @@ const AppState = ({ children }) => {
     const storeComponent = JSON.parse(localStorage.getItem("storedComponents"));
 
     dispatchTool({ type: "REMOVE_TOOL", payload: compKey });
-    localStorage.removeItem(`notes_${compKey}`);
+
+    localStorage.removeItem(
+      storeComponent.filter((comp) => comp.split("_")[1] === compKey)[0]
+    );
     localStorage.setItem(
       "storedComponents",
       JSON.stringify(
@@ -68,11 +71,14 @@ const AppState = ({ children }) => {
   }, []);
 
   const handleClearAll = useCallback(() => {
+    const storedComponent =
+      JSON.parse(localStorage.getItem("storedComponents")) || [];
     dispatchTool({ type: "CLEAR_ALL" });
     localStorage.removeItem("storedComponents");
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    storedComponent.forEach((component) => {
+      const [componentType, compKey] = component.split("_");
+      localStorage.removeItem(`${componentType}_${compKey}`);
+    });
   }, []);
 
   return (

@@ -19,7 +19,6 @@ const Todo = ({componentKey,details}) => {
     return todoListItems.every(item=>item.checked===true) && todoListItems.length>0
   },[todoListItems])
   const [celebrate,setCelebrate] = useState(false)
-  
   const handleDragStop = useCallback((e,data)=>{
     if (position.x !== data.x || position.y !== data.y){
       setPosition({x:data.x,y:data.y})
